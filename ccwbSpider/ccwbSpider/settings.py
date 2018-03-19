@@ -8,7 +8,7 @@
 #     http://doc.scrapy.org/en/latest/topics/settings.html
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
-
+import os
 BOT_NAME = 'ccwbSpider'
 
 SPIDER_MODULES = ['ccwbSpider.spiders']
@@ -65,7 +65,9 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'ccwbSpider.pipelines.CcwbspiderPipeline': 300,
+    # 'ccwbSpider.pipelines.CcwbspiderPipeline': 300,
+    # 使用异步通用方式写入数据库
+    # 'ArticleSpider.pipelines.MysqlTwistedPipeline': 6,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -88,3 +90,15 @@ ROBOTSTXT_OBEY = False
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+
+# 设置哪个字段是图片
+IMAGES_URLS_FIELD = "front_image_url"
+project_dir = os.path.abspath(os.path.dirname(__file__))
+IMAGES_STORE = os.path.join(project_dir, 'images')
+
+# mysql基本信息
+MYSQL_HOST = "127.0.0.1"
+MYSQL_DBNAME = "articlespider"
+MYSQL_USER = "root"
+MYSQL_PASSWORD = "root"

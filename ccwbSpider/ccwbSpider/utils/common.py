@@ -1,16 +1,16 @@
-# -*- coding: utf-8 -*-
-__author__ = 'bobby'
-import hashlib
+# encoding: utf-8
 import re
+import hashlib
+
 
 
 def get_md5(url):
+    # str就是unicode了.Python3中的str对应2中的Unicode
     if isinstance(url, str):
         url = url.encode("utf-8")
     m = hashlib.md5()
     m.update(url)
     return m.hexdigest()
-
 
 def extract_num(text):
     #从字符串中提取出数字
@@ -23,4 +23,4 @@ def extract_num(text):
     return nums
 
 if __name__ == "__main__":
-    print (get_md5("http://jobbole.com".encode("utf-8")))
+    print(get_md5("http://jobbole.com".encode("utf-8")) == '0efdf49af511fd88681529ef8c2e5fbf')
