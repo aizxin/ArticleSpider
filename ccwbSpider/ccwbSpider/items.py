@@ -13,7 +13,7 @@ class CcwbspiderItem(scrapy.Item):
     # name = scrapy.Field()
     pass
 
-class FinanceArticleItem(scrapy.Item):
+class ArticleItem(scrapy.Item):
     title = scrapy.Field() # 文章标题
     add_time = scrapy.Field() # 文章发布时间
     url = scrapy.Field() # 文章的原地址
