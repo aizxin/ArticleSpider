@@ -21,10 +21,10 @@ http://yn.people.com.cn/GB/378439/index.html  人民网（云南新闻）
 http://news.youth.cn/jsxw/  中国青年网（即时新闻）
 http://news.youth.cn/sh/   中国青年网（社会）
 http://www.chinanews.com/scroll-news/news1.html  中国新闻网（滚动新闻）
-http://finance.chinanews.com/cj/gd.shtml  中国新闻网（财经新闻）
+http://finance.chinanews.com/cj/gd.shtml  中国新闻网（财经新闻）（1）
 http://news.cctv.com/    央视网（要闻）
 http://www.china.com.cn/lianghui/news/node_8002790.shtml 中国网（要闻）
-http://finance.ce.cn/rolling/            中国经济网（财经滚动新闻）
+http://finance.ce.cn/rolling/            中国经济网（财经滚动新闻）（1）
 http://world.chinadaily.com.cn/node_1072287.htm  中国日报(国际资讯)
 http://news.ceic.ac.cn/index.html?time=1521015454 中国地震网
 http://www.jinbifun.com/forum-72924-1.html 金碧坊(金色热线)
@@ -36,6 +36,6 @@ http://www.km.gov.cn/zfxxgkml/rsxx/rsrm/      人事任免
 http://www.km.gov.cn/zfxxgkml/rsxx/gwyzl/    公务员招录
 
 http://news.ifeng.com/listpage/11502/0/1/rtlist.shtml  凤凰网资讯 
-http://finance.ifeng.com/listpage/1/marketlist.shtml   凤凰网财经
+http://finance.ifeng.com/listpage/1/marketlist.shtml   凤凰网财经（1）   
 http://sports.sohu.com/scroll/   搜狐体育（滚动新闻）
-http://news.163.com/shehui/  网易新闻（社会新闻）
+http://news.163.com/shehui/  网易新闻（社会新闻） (1)

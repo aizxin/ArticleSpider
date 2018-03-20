@@ -20,13 +20,14 @@ class ArticleItem(scrapy.Item):
     url_object_id = scrapy.Field() # 文章的id
     content = scrapy.Field() # 文章的内容
     create_time = scrapy.Field() # 文章抓取时间
+    update_time = scrapy.Field() # 文章抓取时间
     source_article = scrapy.Field() # 文章来源
     type_article = scrapy.Field() # 文章分类1:经济，2:新闻，3：体育
 
     def get_insert_sql(self):
         insert_sql = """
-            insert into ccwb_article(title, url, url_object_id,add_time,content,create_time,source_article,type_article)
-            VALUES (%s, %s, %s,%s, %s, %s, %s, %s) ON DUPLICATE KEY UPDATE create_time=VALUES(create_time),content=VALUES(content)
+            insert into ccwb_article(title, url, url_object_id,add_time,content,create_time,source_article,type_article,update_time)
+            VALUES (%s, %s, %s,%s, %s, %s, %s, %s, %s) ON DUPLICATE KEY UPDATE update_time=VALUES(update_time),content=VALUES(content)
         """
         params = (
             self["title"],
@@ -37,5 +38,6 @@ class ArticleItem(scrapy.Item):
             self["create_time"],
             self["source_article"],
             self["type_article"],
+            self["update_time"],
         )
         return insert_sql, params

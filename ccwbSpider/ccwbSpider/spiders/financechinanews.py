@@ -27,17 +27,21 @@ class FinancechinanewsSpider(scrapy.Spider):
         article_item['title'] =  response.css(".content h1::text").extract()[0]
         add_time = response.css('div.left-t::text').extract()[0].strip().split("\u3000来源：")
         if add_time[1] != "":
-            article_item['source_article'] = add_time[1]+",财经"
+            article_item['source_article'] = add_time[1]
         else:
-            article_item['source_article'] = response.css('div.left-t a::text').extract()[0]+',财经'
+            article_item['source_article'] = response.css('div.left-t a::text').extract()[0]
         article_item['content'] = response.css('div.left_zw').extract()[0]
         article_item['url'] = response.url
         article_item['type_article'] = 1
         article_item['url_object_id'] = get_md5(response.url)
-        article_item['create_time'] = datetime.datetime.now().date()
+        article_item['create_time'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        article_item['update_time'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         article_item['add_time'] = datetime.datetime.strptime(add_time[0], '%Y年%m月%d日 %H:%M').strftime('%Y-%m-%d %H:%M:%S')
-        # now_day = datetime.datetime.now().strftime('%d')        
-        # spider_day = datetime.datetime.strptime(add_time[0], '%Y年%m月%d日 %H:%M').strftime('%d')
-        # if now_day != spider_day:
+        now_day = datetime.datetime.now().strftime('%d')        
+        spider_day = datetime.datetime.strptime(add_time[0], '%Y年%m月%d日 %H:%M').strftime('%d')
+        if now_day == spider_day:
         #     raise CloseSpider('enough')
-        yield article_item
+            yield article_item
+        else:
+            pass
+        
