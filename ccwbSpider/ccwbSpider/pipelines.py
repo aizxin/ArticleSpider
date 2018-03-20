@@ -10,8 +10,6 @@ import json
 import MySQLdb
 import MySQLdb.cursors
 from twisted.enterprise import adbapi
-from scrapy.exporters import JsonItemExporter
-from scrapy.pipelines.images import ImagesPipeline
 
 class CcwbspiderPipeline(object):
     def process_item(self, item, spider):
@@ -52,80 +50,10 @@ class MysqlTwistedPipeline(object):
     def do_insert(self, cursor, item):
         # 执行具体的插入
         # 根据不同的item 构建不同的sql语句并插入到mysql中
-        insert_sql = """
-            insert into jobbole_article(url_object_id, title, url, create_date, fav_nums)
-            VALUES (%s, %s, %s, %s, %s)
-        """
+        insert_sql, params = item.get_insert_sql()
         # 使用VALUES实现传值
-        cursor.execute(insert_sql,(item["url_object_id"],item["title"],item["url"],item["create_date"],item["fav_nums"]))
+        cursor.execute(insert_sql,params)
 
     def handle_error(self, failure, item, spider):
         # 处理异步插入的异常
         print (failure)
-
-
-class MysqlPipeline(object):
-    # 采用同步的机制写入mysql
-    def __init__(self):
-        self.conn = MySQLdb.connect(
-            '127.0.0.1',
-            'root',
-            'root',
-            'articlespider',
-            charset="utf8",
-            use_unicode=True)
-        self.cursor = self.conn.cursor()
-
-    def process_item(self, item, spider):
-        insert_sql = """
-            insert into jobbole_article(url_object_id, title, url, create_date, fav_nums)
-            VALUES (%s, %s, %s, %s, %s)
-        """
-        # 使用VALUES实现传值
-        self.cursor.execute(insert_sql,(item["url_object_id"],item["title"],item["url"],item["create_date"],item["fav_nums"]))
-        self.conn.commit()
-
-
-class JsonWithEncodingPipeline(object):
-    # 自定义json文件的导出
-    def __init__(self):
-        # 使用codecs打开避免一些编码问题。
-        self.file = codecs.open('article.json', 'w', encoding="utf-8")
-
-    def process_item(self, item, spider):
-        # 将item转换为dict,然后调用dumps方法生成json对象，false避免中文出错
-        lines = json.dumps(dict(item), ensure_ascii=False) + "\n"
-        self.file.write(lines)
-        return item
-
-    # 当spider关闭的时候: 这是一个spider_closed的信号量。
-    def spider_closed(self, spider):
-        self.file.close()
-
-
-# 调用scrapy提供的json export导出json文件
-class JsonExporterPipeline(object):
-    def __init__(self):
-        self.file = open('articleexport.json', 'wb')
-        self.exporter = JsonItemExporter(
-            self.file, encoding="utf-8", ensure_ascii=False)
-        self.exporter.start_exporting()
-
-    def close_spider(self, spider):
-        self.exporter.finish_exporting()
-        self.file.close()
-
-    def process_item(self, item, spider):
-        self.exporter.export_item(item)
-        return item
-
-# 自定义的pipeline,可实现下载图片的同时获取本地地址。
-class ArticleImagePipeline(ImagesPipeline):
-    # 重写该方法可从result中获取到图片的实际下载地址
-    def item_completed(self, results, item, info):
-        if "front_image_url" in item:
-            for ok, value in results:
-                image_file_path = value["path"]
-            item["front_image_path"] = image_file_path
-
-        return item

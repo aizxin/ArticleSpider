@@ -26,7 +26,7 @@ class ArticleItem(scrapy.Item):
     def get_insert_sql(self):
         insert_sql = """
             insert into ccwb_article(title, url, url_object_id,add_time,content,create_time,source_article,type_article)
-            VALUES (%s, %s, %s,%s, %s, %s, %s, %s) ON DUPLICATE KEY UPDATE create_time=VALUES(create_time)
+            VALUES (%s, %s, %s,%s, %s, %s, %s, %s) ON DUPLICATE KEY UPDATE create_time=VALUES(create_time),content=VALUES(content)
         """
         params = (
             self["title"],

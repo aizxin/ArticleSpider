@@ -64,11 +64,11 @@ ROBOTSTXT_OBEY = False
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
+ITEM_PIPELINES = {
     # 'ccwbSpider.pipelines.CcwbspiderPipeline': 300,
     # 使用异步通用方式写入数据库
-    # 'ArticleSpider.pipelines.MysqlTwistedPipeline': 6,
-#}
+    'ccwbSpider.pipelines.MysqlTwistedPipeline': 1,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
